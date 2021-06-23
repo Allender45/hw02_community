@@ -10,12 +10,16 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE,
                                related_name="posts")
     group = models.ForeignKey('Group', on_delete=models.PROTECT,
-                              verbose_name='Сообщество', blank=True, null=True)
+                              verbose_name='Сообщество', blank=True, null=True,
+                              related_name='groups')
+    # PROTECT как раз сохраняет запись при удалении связей.
+    # Вот если бы был CASCADE...
     published = models.BooleanField(default=True, verbose_name='Опубликованно')
 
     class Meta:
         verbose_name = 'Пост'
         verbose_name_plural = 'Посты'
+        ordering = ['-pub_date']
 
 
 class Group(models.Model):
