@@ -10,5 +10,5 @@ def index(request):
 
 def group_posts(request, slug):
     group = get_object_or_404(Group, slug=slug)
-    latest = group.groups.all()[:13]
+    latest = group.posts.all()[:13]
     return render(request, 'group.html', {'posts': latest, 'group': group, })
